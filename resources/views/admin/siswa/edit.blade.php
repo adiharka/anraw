@@ -2,8 +2,7 @@
 @section('header')
 <script>
     document.getElementById('guru').className = 'active active-click';
-    document.title = 'Tambah Pelajaran';
-
+    document.title = 'Edit Guru';
 </script>
 <div class="flex-row header">
     <div class="flex-row">
@@ -21,7 +20,7 @@
             </a>
         </div>
         <h1 id="header">
-            Tambah Pelajaran</h1>
+            Edit Guru</h1>
     </div>
 </div>
 @endsection
@@ -30,27 +29,25 @@
 <div class="flex-wrap" style="justify-content: flex-start;">
     <div class="task-group" style="width: 100%;">
 
-        <form method="POST" action="{{ route('admin.guru.storeSubject', $id)}}" class="container-child">
+        <form method="POST" action="{{ route('admin.siswa.update', $id)}}" class="container-child">
+            @method('PUT')
             @csrf
             <div class="form-group">
-                <label for="subject">Mata Pelajaran</label>
-                <select name="subject" id="subject" class="form-control">
-                    <option value="" disabled selected>Mata Pelajaran yg diampu</option>
-                    <option value="Matematika">Matematika</option>
-                    <option value="Fisika">Fisika</option>
-                    <option value="Kimia">Kimia</option>
-                    <option value="Biologi">Biologi</option>
-                    <option value="Bahasa Indonesia">Bahasa Indonesia</option>
-                    <option value="Bahasa Inggris">Bahasa Inggris</option>
-                    <option value="Sejarah">Sejarah</option>
-                    <option value="Ekonomi">Ekonomi</option>
-                    <option value="Geografi">Geografi</option>
-                </select>
+                <label for="nama">Nama</label>
+                <input type="text" name="name" class="form-control" id="name" placeholder="Nama guru" value="{{ old('name', $student->user->name)}}" >
+            </div>
+            <div class="form-group">
+                <label for="nisn">NISN</label>
+                <input type="text" name="nisn" class="form-control" id="nisn" placeholder="1234XXXX" value="{{ old('nisn', $student->NISN)}}">
+            </div>
+            <div class="form-group">
+                <label for="no">No. Handphone</label>
+                <input class="form-control" name="no" type="text" id="no" placeholder="08XXXXX" value="{{ old('no', $student->phonenumber)}}">
             </div>
             <div class="form-group">
                 <label for="class">Kelas</label>
                 <select name="class" id="class" class="form-control">
-                    <option value="" disabled selected>Pilih kelas</option>
+                    <option value="{{ $student->classroom_id }}" selected>(tetap) {{ $student->classroom->class }} {{ $student->classroom->major }} {{$student->classroom->letter}}</option>
                     @forelse ($class as $kelas)
                     <option value="{{ $kelas->id }}">{{ $kelas->class }} {{ $kelas->major }} {{$kelas->letter}}</option>
                     @empty
@@ -59,7 +56,7 @@
                 </select>
             </div>
             <div class="form-group primary-button">
-                <button type="submit">Tambah</button>
+                <button type="submit">Edit</button>
             </div>
         </form>
 

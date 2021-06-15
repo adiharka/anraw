@@ -1,9 +1,12 @@
 @extends('admin.master')
+
+@section('title')
+<title>Tambah Tugas</title>
+@endsection
+
 @section('header')
 <script>
     document.getElementById('guru').className = 'active active-click';
-    document.title = 'Tambah Pelajaran';
-
 </script>
 <div class="flex-row header">
     <div class="flex-row">
@@ -21,7 +24,7 @@
             </a>
         </div>
         <h1 id="header">
-            Tambah Pelajaran</h1>
+            Tambah Tugas</h1>
     </div>
 </div>
 @endsection
@@ -30,33 +33,32 @@
 <div class="flex-wrap" style="justify-content: flex-start;">
     <div class="task-group" style="width: 100%;">
 
-        <form method="POST" action="{{ route('admin.guru.storeSubject', $id)}}" class="container-child">
+        <form method="POST" action="{{ route('guru.tugas.store')}}" class="container-child">
             @csrf
-            <div class="form-group">
-                <label for="subject">Mata Pelajaran</label>
-                <select name="subject" id="subject" class="form-control">
-                    <option value="" disabled selected>Mata Pelajaran yg diampu</option>
-                    <option value="Matematika">Matematika</option>
-                    <option value="Fisika">Fisika</option>
-                    <option value="Kimia">Kimia</option>
-                    <option value="Biologi">Biologi</option>
-                    <option value="Bahasa Indonesia">Bahasa Indonesia</option>
-                    <option value="Bahasa Inggris">Bahasa Inggris</option>
-                    <option value="Sejarah">Sejarah</option>
-                    <option value="Ekonomi">Ekonomi</option>
-                    <option value="Geografi">Geografi</option>
-                </select>
-            </div>
             <div class="form-group">
                 <label for="class">Kelas</label>
                 <select name="class" id="class" class="form-control">
                     <option value="" disabled selected>Pilih kelas</option>
-                    @forelse ($class as $kelas)
-                    <option value="{{ $kelas->id }}">{{ $kelas->class }} {{ $kelas->major }} {{$kelas->letter}}</option>
+                    @forelse ($subjects as $subject)
+                    <option value="{{ $subject->id }}">{{ $subject->classroom->class }} {{ $subject->classroom->major }}
+                        {{$subject->classroom->letter}} - {{$subject->name}}</option>
                     @empty
-                    <option value="" disabled selected>Tambahkan kelas terlebih dahulu</option>
+                    <option value="" disabled selected>Belum memiliki kelas, harap kontak Admin</option>
                     @endforelse
                 </select>
+            </div>
+            <div class="form-group">
+                <label for="judul">Judul</label>
+                <input type="text" class="form-control" name="judul" id="judul" placeholder="Judul Tugas">
+            </div>
+            <div class="form-group">
+                <label for="detail">Detail</label>
+                <textarea id="detail" class="form-control" name="detail" rows="4" cols="50" placeholder="Detail Tugas"></textarea>
+                {{-- <input type="text" class="form-control" name="detail" id="detail" placeholder="Detail Tugas"> --}}
+            </div>
+            <div class="form-group">
+                <label for="deadline">Deadline</label>
+                <input type="datetime-local" class="form-control" name="deadline" id="deadline">
             </div>
             <div class="form-group primary-button">
                 <button type="submit">Tambah</button>

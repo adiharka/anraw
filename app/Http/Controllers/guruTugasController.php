@@ -2,16 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Models\Classroom;
-use App\Models\Student;
-use App\Models\Teacher;
+use App\Models\Assignment;
 use App\Models\Subject;
-use Session;
-use Config;
+use Illuminate\Http\Request;
 use Auth;
+use Config;
+use PhpParser\Node\Expr\Assign;
+use Session;
 
-class ClassroomController extends Controller
+class guruTugasController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -20,9 +19,10 @@ class ClassroomController extends Controller
      */
     public function index()
     {
-        $class = Classroom::withCount('student')->get();
+        $tugas = Assignment::get();
         $color = Config::get('constants.color');
-        return view('admin.kelas.index',compact('class','color'));
+        $subjects = Subject::where('teacher_id', Auth::user()->teacher->id)->get();
+        return view('guru.tugas.index', compact('tugas', 'subjects', 'color'));
     }
 
     /**
@@ -32,7 +32,9 @@ class ClassroomController extends Controller
      */
     public function create()
     {
-        return view('admin.kelas.add');
+        $subjects = Subject::where('teacher_id', Auth::user()->teacher->id)->get();
+
+        return view('guru.tugas.create', compact('subjects'));
     }
 
     /**
@@ -44,23 +46,24 @@ class ClassroomController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'class' => 'required',
-            'major' => 'required',
+            'judul' => 'required',
+            'detail' => 'required',
+            'deadline' => 'required',
         ]);
-        $letter = classroom::where('class', $request->class)->where('major', $request->major)->count() + 1;
 
-        $class = new classroom();
-        $class->class = $request->class;
-        $class->major = $request->major;
-        $class->letter = $letter;
-        $save = $class->save();
+        $tugas = new Assignment();
+        $tugas->subject_id = $request->class;
+        $tugas->judul = $request->judul;
+        $tugas->deskripsi = $request->detail;
+        $tugas->deadline = $request->deadline;
+        $save = $tugas->save();
 
         if($save){
-            Session::flash('success', 'Sukses menambah kelas');
-            return redirect()->route('admin.kelas.index');
+            Session::flash('success', 'Sukses menambah tugas');
+            return redirect()->route('guru.tugas.index');
         } else {
-            Session::flash('errors', ['' => 'Gagal menambah kelas!']);
-            return redirect()->route('admin.kelas.create');
+            Session::flash('errors', ['' => 'Gagal menambah tugas!']);
+            return back();
         }
     }
 
@@ -72,10 +75,8 @@ class ClassroomController extends Controller
      */
     public function show($id)
     {
-        $student = Student::where('classroom_id', $id)->get();
-        $subject = Subject::where('classroom_id', $id)->get();
-        $color = Config::get('constants.color');
-        return view('admin.kelas.show', compact('student', 'subject', 'color', 'id'));
+        $tugas = Assignment::where('id', $id)->first();
+        return view('guru.tugas.show', compact('tugas'));
     }
 
     /**
@@ -109,7 +110,8 @@ class ClassroomController extends Controller
      */
     public function destroy($id)
     {
-        //
-    }
+        Assignment::destroy($id);
 
+        return back()->with('success','Sukses menghapus tugas');
+    }
 }

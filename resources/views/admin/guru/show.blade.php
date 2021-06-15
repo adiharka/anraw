@@ -9,7 +9,7 @@
 <div class="flex-row header">
     <div class="flex-row">
         <div class="flex-row isi-button primary-button " style="align-items: flex-start">
-            <a href="{{ route('admin.guru.index')}}" style="display: flex;">
+            <a href="{{ url()->previous() }}" style="display: flex;">
                 <svg id="back-button" width="30" height="30" viewBox="0 0 20 20" fill="none"
                     xmlns="http://www.w3.org/2000/svg">
                     <path
@@ -23,8 +23,9 @@
         </div>
         <h1 id="header">Detail Guru</h1>
     </div>
-    <div class="form-group flex-row primary-button" style="align-items: flex-end; margin: 0; max-width: 175px;">
-        <a href="{{ route('admin.guru.subject', $id) }}"><button type="submit" value="Submit">Atur Kelas</button></a>
+    <div class="form-group flex-row primary-button" style="justify-content: flex-end; flex-direction:row; gap:0.5rem; margin: 0; width: fit-content;">
+        <a href="{{ route('admin.guru.edit', $id) }}"><button type="submit" value="Submit">Edit Profil</button></a>
+        <a href="{{ route('admin.guru.subject', $id) }}"><button type="submit" value="Submit">Tambah Kelas</button></a>
     </div>
 </div>
 @endsection
@@ -47,9 +48,23 @@
             <?php $count=0 ?>
             @foreach ($subject as $kelas)
             <?php $count++ ?>
-            <div onclick="location.href='#'" color="{{ $color[$kelas->classroom->letter] }}" class="task">
-                <h1> {{ $kelas->classroom->class }} {{ $kelas->classroom->major }} {{$kelas->classroom->letter}}</h1>
-                <p> {{ $kelas->name }}</p>
+            <div color="{{ $color[$kelas->classroom->letter] }}" class="task" style="box-shadow:none; cursor:default">
+                <div class="flex-row" style="gap:4px; height:100%">
+                    <div class="flex-col" style="height:100%; align-items: flex-start">
+                        <h1> {{ $kelas->classroom->class }} {{ $kelas->classroom->major }} {{$kelas->classroom->letter}}</h1>
+                        <p> {{ $kelas->name }}</p>
+                    </div>
+                    <div class="flex-col" style="height:100%; align-items: flex-start">
+                    <a href="{{ route('admin.kelas.show', $kelas->classroom_id)}}">></a>
+                    <form action="{{ route('admin.guru.destroySubject', ['subject_id' => $kelas->id, 'id' => $id])}}" method="POST" class="btn">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" style="background:none; padding:0; margin:0">
+                            <a color="remove" onclick="return confirm('Yakin untuk menghapus?')">x</a>
+                        </button>
+                    </form>
+                    </div>
+                </div>
             </div>
             @endforeach
             @if ($count == 0)

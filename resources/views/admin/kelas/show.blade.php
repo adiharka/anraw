@@ -2,8 +2,8 @@
 
 @section('header')
 <script>
-    document.getElementById('siswa').className = 'active active-click';
-    document.title = 'Detail Siswa';
+    document.getElementById('kelas').className = 'active active-click';
+    document.title = 'Detail Kelas';
 
 </script>
 <div class="flex-row header">
@@ -21,25 +21,13 @@
                 </svg>
             </a>
         </div>
-        <h1 id="header">Detail siswa</h1>
-    </div>
-    <div class="form-group flex-row primary-button" style="justify-content: flex-end; flex-direction:row; gap:0.5rem; margin: 0; width: fit-content;">
-        <a href="{{ route('admin.siswa.edit', $id) }}"><button type="submit" value="Submit">Edit Profil</button></a>
+        <h1 id="header">Detail Kelas</h1>
     </div>
 </div>
 @endsection
 @section('content')
 
 <div class="flex-wrap" style="justify-content: flex-start;">
-    <div class="task-group" style="width: 100%;">
-        <h3>Info</h3>
-        <div class="listdata">
-            <p>Nama : {{$student->user->name}}</p>
-            <p>NISN : {{$student->NISN}}</p>
-            <p>Nomor Telp : {{$student->phonenumber}}</p>
-            <p>Kelas : {{$student->classroom->class}} {{$student->classroom->major}} {{$student->classroom->letter}}</p>
-    </div>
-    </div>
     <div class="task-group">
         <h1>Pelajaran</h1>
         <div class="tasks">
@@ -58,14 +46,42 @@
             @endif
         </div>
     </div>
-    {{-- <div class="task-group" style="width: 100%;">
-        <div class="listdata">
-            <p>Nama : {{$teacher->user->name}}</p>
-    <p>NIP : {{$teacher->NIP}}</p>
-    <p>Nomor Telp : {{$teacher->phonenumber}}</p>
-    <p>Alamat : {{$teacher->address}}</p>
-</div>
-</div> --}}
+    <div class="task-group" style="width: 100%;">
+        <h1>Siswa</h1>
+        @if (!$student->isEmpty())
+        <table id="table">
+        <input type="text" id="searchInput" style='margin-bottom: 1rem' class="form-control" onkeyup="search(1)" placeholder="Ketik untuk mencari">
+            <tr class="tableheader">
+                <th width="25px" class="rowstart">ID</th>
+                <th>Nama</th>
+                <th>NIP</th>
+                <th width="140px" class="rowend">Action</th>
+            </tr>
+            <?php $count=0 ?>
+            @foreach ($student as $siswa)
+            <?php $count++ ?>
+            <tr>
+                <td class="rowstart">{{$siswa->id}}</td>
+                <td>{{$siswa->user->name}}</td>
+                <td>{{$siswa->NISN}}</td>
+                <td class="rowend flex-row">
+                    <a href="{{ route('admin.siswa.show', $siswa->id)}}">
+                        <button color="info">Detail</button>
+                    </a>
+                    <form action="{{ route('admin.siswa.destroy', $siswa->id)}}" method="POST">
+                    {{-- <button onclick="{{ route('admin.siswa.edit', $siswa->user_id)}}" color="edit">Edit</button> --}}
+                        @csrf
+                        @method('DELETE')
+                        <button type='submit' color="remove">Remove</button>
+                    </form>
+                </td>
+            </tr>
+            @endforeach
+        </table>
+        @else
+        <p>Tidak ada siswa</p>
+        @endif
+    </div>
 
 </div>
 @endsection

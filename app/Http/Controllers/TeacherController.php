@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 use Illuminate\Http\Request;
 use App\Models\Classroom;
 use App\Models\Teacher;
@@ -52,7 +54,7 @@ class TeacherController extends Controller
     {
         $request->validate([
             'name' => 'required',
-            'nip' => 'required',
+            'nip' => 'required|unique:teachers',
             'no' => 'required',
             'address' => 'required',
             'password' => 'required|confirmed',
@@ -130,7 +132,10 @@ class TeacherController extends Controller
      */
     public function edit($id)
     {
-        //
+        $teacher = Teacher::where('id', $id)->first();
+        $subject = Subject::where('teacher_id', $id)->get();
+        $color = Config::get('constants.color');
+        return view('admin.guru.edit', compact('teacher', 'subject', 'color', 'id'));
     }
 
     /**
@@ -142,7 +147,34 @@ class TeacherController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+            'nip' => [
+                'required',
+                Rule::unique('teachers')->ignore($request->nip, 'NIP'),
+            ],
+            'no' => 'required',
+            'address' => 'required',
+        ]);
+
+        $teacher = Teacher::find($id);
+        $teacher->NIP = $request->nip;
+        $teacher->phonenumber = $request->no;
+        $teacher->address = $request->address;
+        $save2 = $teacher->save();
+
+        $user = User::find($teacher->user_id);
+        $user->name = $request->name;
+        $user->email = $request->nip;
+        $save = $user->save();
+
+        if($save && $save2){
+            Session::flash('success', 'Sukses mengedit guru');
+            return redirect()->route('admin.guru.show', $id);
+        } else {
+            Session::flash('errors', ['' => 'Gagal mengedit guru!']);
+            return redirect()->route('admin.guru.create');
+        }
     }
 
     /**
@@ -158,5 +190,13 @@ class TeacherController extends Controller
 
         return redirect()->route('admin.guru.index')
                         ->with('success','Sukses menghapus guru');
+    }
+
+    public function destroySubject($id, $subject_id) {
+        Subject::destroy($subject_id);
+
+        return redirect()->route('admin.guru.show', $id)
+                        ->with('success','Sukses menghapus pelajaran');
+
     }
 }

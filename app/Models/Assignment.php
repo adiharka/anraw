@@ -8,11 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class Assignment extends Model
 {
     use HasFactory;
-    
+
     public function subject() {
-        return $this->hasOne(subject::class);
+        return $this->belongsTo(subject::class);
     }
-    
+
     public function classroom() {
         return $this->hasOne(classroom::class);
     }

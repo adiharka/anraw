@@ -11,6 +11,10 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Exo:wght@700&family=Exo:wght@500&family=Source+Sans+Pro:wght@600&display=swap"
         rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=DM+Mono&display=swap');
+
+    </style>
     <script src="{{ asset('script.js')}}"></script>
     <style>
         :root {
@@ -60,8 +64,8 @@
                         <path d="M13.3337 6.66663L1.66699 18.3333" stroke-linecap="round" stroke-linejoin="round" />
                     </svg>
                     <span>GURU</span></li>
-                <li id="siswa" onclick="location.href='{{ route('admin.siswa.index')}}';" onmouseover="hover('siswaLogo')"
-                    onmouseout="hover('siswaLogo')">
+                <li id="siswa" onclick="location.href='{{ route('admin.siswa.index')}}';"
+                    onmouseover="hover('siswaLogo')" onmouseout="hover('siswaLogo')">
                     <svg id="siswaLogo" width="20" height="20" viewBox="0 0 20 20" fill="none"
                         xmlns="http://www.w3.org/2000/svg">
                         <path
@@ -101,7 +105,7 @@
                 @if(session('errors'))
                 <div>
                     <div id='alert' class='normal'>
-                        <div class="task-group" style="padding-bottom: 1rem">
+                        <div class="task-group" style="padding-bottom: 1rem; overflow:hidden">
                             <p style="margin: 0; text-align: center">Terjadi Error:</p>
                             <ul>
                                 @foreach ($errors->all() as $error)
@@ -119,7 +123,7 @@
                 @if(session('success'))
                 <div>
                     <div id='alert' class='normal'>
-                        <div class="task-group" style="padding-bottom: 1rem">
+                        <div class="task-group" style="padding-bottom: 1rem; overflow:hidden">
                             <ul style="margin-top:0">
                                 <li>{{session('success')}}</li>
                             </ul>

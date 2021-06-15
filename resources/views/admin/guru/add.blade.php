@@ -7,7 +7,7 @@
 <div class="flex-row header">
     <div class="flex-row">
         <div class="flex-row isi-button primary-button " style="align-items: flex-start">
-            <a href="{{ route('admin.guru.index')}}" style="display: flex;">
+            <a href="{{ url()->previous() }}" style="display: flex;">
                 <svg id="back-button" width="30" height="30" viewBox="0 0 20 20" fill="none"
                     xmlns="http://www.w3.org/2000/svg">
                     <path

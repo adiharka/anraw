@@ -22,7 +22,7 @@
             @foreach ($class as $kelas)
             @if ($kelas->class == 'X')
             <?php $count++ ?>
-            <div onclick="location.href='#'" color="{{ $color[$kelas->letter] }}" class="task">
+            <div onclick="location.href='{{ route('admin.kelas.show', $kelas->id)}}'" color="{{ $color[$kelas->letter] }}" class="task">
                 <h1>X {{ $kelas->major }} {{$kelas->letter}}</h1>
                 <p>jumlah siswa : {{ $kelas->student_count }}</p>
             </div>
@@ -42,7 +42,7 @@
             @foreach ($class as $kelas)
             @if ($kelas->class == 'XI')
             <?php $count++ ?>
-            <div onclick="location.href='#'" color="{{ $color[$kelas->letter] }}" class="task">
+            <div onclick="location.href='{{ route('admin.kelas.show', $kelas->id)}}'" color="{{ $color[$kelas->letter] }}" class="task">
                 <h1>XI {{ $kelas->major }} {{$kelas->letter}}</h1>
                 <p>jumlah siswa : {{ $kelas->student_count }}</p>
             </div>
@@ -62,7 +62,7 @@
             @foreach ($class as $kelas)
             @if ($kelas->class == 'XII')
             <?php $count++ ?>
-            <div onclick="location.href='#'" color="{{ $color[$kelas->letter] }}" class="task">
+            <div onclick="location.href='{{ route('admin.kelas.show', $kelas->id)}}'" color="{{ $color[$kelas->letter] }}" class="task">
                 <h1>XII {{ $kelas->major }} {{$kelas->letter}}</h1>
                 <p>jumlah siswa : {{ $kelas->student_count }}</p>
             </div>

@@ -1,70 +1,57 @@
 @extends('siswa.master')
 
-@section('content')
+@section('title')
+   <title>Tugas</title>
+@endsection
+
+@section('header')
 <script>
     document.getElementById('tugas').className = 'active active-click';
 </script>
+
 <h1 id="header">Tugas</h1>
+@endsection
+
+@section('content')
 <div class="flex-wrap" style="justify-content: flex-start;">
+    @foreach ($subjects as $subject)
     <div class="task-group">
-        <h1>Senin, 14 Januari</h1>
+        <h1>{{$subject->name}}</h1>
         <div class="tasks">
+            {{-- @foreach ($tugas as $tugas)
+            @if ($tugas->subject_id == $subject->id)
             <div onclick="location.href='#'" color="yellow" class="task">
-                <h1>Tugas BAB 3 - Aritmetika</h1>
-                <p>23:59 - Mtk</p>
-            </div>
-            <div onclick="location.href='#'" color="tosca" class="task">
-                <h1>Praktek Laboratorium</h1>
-                <p>23:59 - Kimia</p>
-            </div>
-            <div onclick="location.href='#'" color="red" class="task">
-                <h1>Sejarah Belanda</h1>
-                <p>23:59 - Sejarah</p>
-            </div>
-            <div onclick="location.href='#'" color="purple" class="task">
-                <h1>Hitung kec. pesawat</h1>
-                <p>23:59 - Fisika</p>
-            </div>
-            <div onclick="location.href='#'" color="purple" class="task">
-                <h1>Hitung kec. pesawat</h1>
-                <p>23:59 - Fisika</p>
-            </div>
-            <div onclick="location.href='#'" color="purple" class="task">
-                <h1>Hitung kec. pesawat</h1>
-                <p>23:59 - Fisika</p>
-            </div>
-            <div onclick="location.href='#'" color="purple" class="task">
-                <h1>Hitung kec. pesawat</h1>
-                <p>23:59 - Fisika</p>
+                <h1>{{$tugas->judul}}</h1>
+            <p>{{$tugas->deadline}}</p>
+        </div>
+        @endif
+        @endforeach --}}
+        <?php $count=0 ?>
+        @foreach ($tugass as $tugas)
+        @if ($tugas->subject->name == $subject->name)
+        <?php $count++ ?>
+        <div color="{{ $color[$subject->classroom->letter] }}" class="task" style="box-shadow:none; cursor:default">
+            <div class="flex-row" style="gap:4px; height:100%">
+                <div class="flex-col" style="height:100%; align-items: flex-start">
+                    <h1>{{ $tugas->judul }}</h1>
+                    <p>{{ \Carbon\Carbon::parse($tugas->deadline)->format('D, d M y')}}</p>
+                    <p>{{ \Carbon\Carbon::parse($tugas->deadline)->format('H:i')}}</p>
+                </div>
+                <div class="flex-col" style="height:100%; align-items: flex-start">
+                    <a href="{{ route('siswa.tugas.show', $tugas->id)}}">></a>
+                </div>
             </div>
         </div>
-    </div>
-    <div class="task-group">
-        <h1>Selasa, 15 Januari</h1>
-        <div class="tasks">
-            <div onclick="location.href='#'" color="yellow" class="task">
-                <h1>Tugas BAB 3 - Geometri</h1>
-                <p>23:59 - Mtk</p>
-            </div>
-            <div onclick="location.href='#'" color="purple" class="task">
-                <h1>Luas Planet</h1>
-                <p>23:59 - Fisika</p>
-            </div>
+
+        @endif
+        @endforeach
+        @if ($count == 0)
+        <div onclick="location.href='#'" class="task disabled">
+            <p>Tidak ada tugas</p>
         </div>
-    </div>
-    <div class="task-group">
-        <h1>Rabu, 16 Januari</h1>
-        <div class="tasks">
-            <div onclick="location.href='#'" color="tosca" class="task">
-                <h1>Raksa</h1>
-                <p>23:59 - Kimia</p>
-            </div>
-            <div onclick="location.href='#'" class="task">
-                <h1>How to Speak</h1>
-                <p>23:59 - Inggris</p>
-            </div>
-        </div>
+        @endif
     </div>
 </div>
+@endforeach
 
 @endsection

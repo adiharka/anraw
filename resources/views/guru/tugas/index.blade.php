@@ -1,75 +1,66 @@
 @extends('guru.master')
 
-@section('content')
+@section('title')
+<title>Absen</title>
+@endsection
+
+@section('header')
 <script>
     document.getElementById('tugas').className = 'active active-click';
+
 </script>
-<div class="flex-row">
-    <h1 id="header">Tugas</h1>
-    <div class="form-group flex-row primary-button" style="align-items: flex-end; margin: 0; margin-bottom: 21px;">
-        <a href="task.html"><button type="submit" value="Submit">Tambah</button></a>
-    </div>
+<h1 id="header">List Tugas</h1>
+<div class="form-group flex-row primary-button"
+    style="justify-content: flex-end; flex-direction:row; gap:0.5rem; margin: 0; width: fit-content;">
+    <a href="{{route('guru.tugas.create')}}"><button type="submit" value="Submit">Tambah</button></a>
 </div>
+@endsection
+
+@section('content')
 
 <div class="flex-wrap" style="justify-content: flex-start;">
+    @foreach ($subjects as $subject)
     <div class="task-group">
-        <h1>Senin, 14 Januari</h1>
+        <h1>{{ $subject->classroom->class }} {{ $subject->classroom->major }}
+            {{$subject->classroom->letter}} - {{$subject->name}}</h1>
         <div class="tasks">
+            {{-- @foreach ($tugas as $tugas)
+            @if ($tugas->subject_id == $subject->id)
             <div onclick="location.href='#'" color="yellow" class="task">
-                <h1>Tugas BAB 3 - Aritmetika</h1>
-                <p>23:59 - Matematika</p>
-            </div>
-            <div onclick="location.href='#'" color="tosca" class="task">
-                <h1>Praktek Laboratorium</h1>
-                <p>23:59 - Kimia</p>
-            </div>
-            <div onclick="location.href='#'" color="red" class="task">
-                <h1>Sejarah Belanda</h1>
-                <p>23:59 - Sejarah</p>
-            </div>
-            <div onclick="location.href='#'" color="purple" class="task">
-                <h1>Hitung kec. pesawat</h1>
-                <p>23:59 - Fisika</p>
-            </div>
-            <div onclick="location.href='#'" color="purple" class="task">
-                <h1>Hitung kec. pesawat</h1>
-                <p>23:59 - Fisika</p>
-            </div>
-            <div onclick="location.href='#'" color="purple" class="task">
-                <h1>Hitung kec. pesawat</h1>
-                <p>23:59 - Fisika</p>
-            </div>
-            <div onclick="location.href='#'" color="purple" class="task">
-                <h1>Hitung kec. pesawat</h1>
-                <p>23:59 - Fisika</p>
+                <h1>{{$tugas->judul}}</h1>
+            <p>{{$tugas->deadline}}</p>
+        </div>
+        @endif
+        @endforeach --}}
+        <?php $count=0 ?>
+        @foreach ($tugas as $tugas)
+        <?php $count++ ?>
+        <div color="{{ $color[$subject->classroom->letter] }}" class="task" style="box-shadow:none; cursor:default">
+            <div class="flex-row" style="gap:4px; height:100%">
+                <div class="flex-col" style="height:100%; align-items: flex-start">
+                    <h1>{{$tugas->judul}}</h1>
+                    <p>{{ \Carbon\Carbon::parse($tugas->deadline)->format('D, d M y')}}</p>
+                    <p>{{ \Carbon\Carbon::parse($tugas->deadline)->format('H:i')}}</p>
+                </div>
+                <div class="flex-col" style="height:100%; align-items: flex-start">
+                    <a href="{{ route('guru.tugas.show', $tugas->id)}}">></a>
+                    <form action="{{ route('guru.tugas.destroy', $tugas->id)}}" method="POST" class="btn">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" style="background:none; padding:0; margin:0">
+                            <a color="remove" onclick="return confirm('Yakin untuk menghapus?')">x</a>
+                        </button>
+                    </form>
+                </div>
             </div>
         </div>
-    </div>
-    <div class="task-group">
-        <h1>Selasa, 15 Januari</h1>
-        <div class="tasks">
-            <div onclick="location.href='#'" color="yellow" class="task">
-                <h1>Tugas BAB 3 - Geometri</h1>
-                <p>23:59 - Matematika</p>
-            </div>
-            <div onclick="location.href='#'" color="purple" class="task">
-                <h1>Luas Planet</h1>
-                <p>23:59 - Fisika</p>
-            </div>
+        @endforeach
+        @if ($count == 0)
+        <div onclick="location.href='#'" class="task disabled">
+            <p>Tidak ada tugas</p>
         </div>
-    </div>
-    <div class="task-group">
-        <h1>Rabu, 16 Januari</h1>
-        <div class="tasks">
-            <div onclick="location.href='#'" color="tosca" class="task">
-                <h1>Raksa</h1>
-                <p>23:59 - Kimia</p>
-            </div>
-            <div onclick="location.href='#'" class="task">
-                <h1>How to Speak</h1>
-                <p>23:59 - Inggris</p>
-            </div>
-        </div>
+        @endif
     </div>
 </div>
+@endforeach
 @endsection

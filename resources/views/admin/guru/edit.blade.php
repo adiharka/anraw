@@ -1,9 +1,8 @@
 @extends('admin.master')
-
 @section('header')
 <script>
-    document.getElementById('siswa').className = 'active active-click';
-    document.title = 'Tambah Siswa';
+    document.getElementById('guru').className = 'active active-click';
+    document.title = 'Edit Guru';
 </script>
 <div class="flex-row header">
     <div class="flex-row">
@@ -20,48 +19,37 @@
                 </svg>
             </a>
         </div>
-        <h1 id="header">Tambah Siswa</h1>
+        <h1 id="header">
+            Edit Guru</h1>
     </div>
 </div>
 @endsection
 @section('content')
+
 <div class="flex-wrap" style="justify-content: flex-start;">
     <div class="task-group" style="width: 100%;">
-        <form method="POST" action="{{ route('admin.siswa.store')}}"  class="container-child">
+
+        <form method="POST" action="{{ route('admin.guru.update', $id)}}" class="container-child">
+            @method('PUT')
             @csrf
             <div class="form-group">
                 <label for="nama">Nama</label>
-                <input type="text" class="form-control" name="name" id="name" placeholder="Joko">
+                <input type="text" name="name" class="form-control" id="name" placeholder="Nama guru" value="{{ old('name', $teacher->user->name)}}" >
             </div>
             <div class="form-group">
-                <label for="nisn">NISN</label>
-                <input type="text" class="form-control" name="nisn" id="nisn" placeholder="1234XXXX">
-            </div>
-            <div class="form-group">
-                <label for="class">Kelas</label>
-                <select name="class" id="class" class="form-control">
-                    <option value="" disabled selected>Pilih kelas</option>
-                    @forelse ($class as $kelas)
-                    <option value="{{ $kelas->id }}">{{ $kelas->class }} {{ $kelas->major }} {{$kelas->letter}}</option>
-                    @empty
-                    <option value="" disabled selected>Tambahkan kelas terlebih dahulu</option>
-                    @endforelse
-                </select>
+                <label for="nip">NIP</label>
+                <input type="text" name="nip" class="form-control" id="nip" placeholder="1234XXXX" value="{{ old('nip', $teacher->NIP)}}">
             </div>
             <div class="form-group">
                 <label for="no">No. Handphone</label>
-                <input class="form-control" type="text" name="no" id="no" placeholder="08XXXXX">
+                <input class="form-control" name="no" type="text" id="no" placeholder="08XXXXX" value="{{ old('no', $teacher->phonenumber)}}">
             </div>
             <div class="form-group">
-                <label for="password">Password</label>
-                <input class="form-control" type="password" name="password" id="password" placeholder="password">
-            </div>
-            <div class="form-group">
-                <label for="re-password">Re-Password</label>
-                <input class="form-control" type="password" name="password_confirmation" id="re-password" placeholder="re-password">
+                <label for="address">Alamat</label>
+                <input class="form-control" name="address" type="text" id="address" placeholder="Nama jalan, Kecamatan, Kabupaten" value="{{ old('address', $teacher->address)}}">
             </div>
             <div class="form-group primary-button">
-                <button type="submit">Tambah</button>
+                <button type="submit">Edit</button>
             </div>
         </form>
 

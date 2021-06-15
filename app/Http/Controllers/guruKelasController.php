@@ -11,7 +11,7 @@ use Session;
 use Config;
 use Auth;
 
-class ClassroomController extends Controller
+class guruKelasController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -20,9 +20,11 @@ class ClassroomController extends Controller
      */
     public function index()
     {
-        $class = Classroom::withCount('student')->get();
+        $id = Auth::user()->teacher->id;
+        $teacher = Teacher::where('id', $id)->first();
+        $subject = Subject::where('teacher_id', $id)->get();
         $color = Config::get('constants.color');
-        return view('admin.kelas.index',compact('class','color'));
+        return view('guru.jadwal.index', compact('teacher', 'subject', 'color', 'id'));
     }
 
     /**
@@ -32,7 +34,7 @@ class ClassroomController extends Controller
      */
     public function create()
     {
-        return view('admin.kelas.add');
+        //
     }
 
     /**
@@ -43,25 +45,7 @@ class ClassroomController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'class' => 'required',
-            'major' => 'required',
-        ]);
-        $letter = classroom::where('class', $request->class)->where('major', $request->major)->count() + 1;
-
-        $class = new classroom();
-        $class->class = $request->class;
-        $class->major = $request->major;
-        $class->letter = $letter;
-        $save = $class->save();
-
-        if($save){
-            Session::flash('success', 'Sukses menambah kelas');
-            return redirect()->route('admin.kelas.index');
-        } else {
-            Session::flash('errors', ['' => 'Gagal menambah kelas!']);
-            return redirect()->route('admin.kelas.create');
-        }
+        //
     }
 
     /**
@@ -75,7 +59,7 @@ class ClassroomController extends Controller
         $student = Student::where('classroom_id', $id)->get();
         $subject = Subject::where('classroom_id', $id)->get();
         $color = Config::get('constants.color');
-        return view('admin.kelas.show', compact('student', 'subject', 'color', 'id'));
+        return view('guru.jadwal.show', compact('student', 'subject', 'color', 'id'));
     }
 
     /**
@@ -111,5 +95,4 @@ class ClassroomController extends Controller
     {
         //
     }
-
 }

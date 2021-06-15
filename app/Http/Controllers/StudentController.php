@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 use App\Models\User;
 use App\Models\Student;
 use App\Models\Subject;
@@ -96,7 +97,11 @@ class StudentController extends Controller
      */
     public function edit($id)
     {
-        //
+        $student = Student::where('id', $id)->first();
+        $subject = Subject::where('classroom_id', $student->classroom_id)->get();
+        $class = Classroom::get();
+        $color = Config::get('constants.color');
+        return view('admin.siswa.edit', compact('student', 'subject', 'class', 'color', 'id'));
     }
 
     /**
@@ -108,7 +113,34 @@ class StudentController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+            'nisn' => [
+                'required',
+                Rule::unique('students')->ignore($request->nisn, 'NISN'),
+            ],
+            'no' => 'required',
+            'class' => 'required',
+        ]);
+
+        $student = Student::find($id);
+        $student->NISN = $request->nisn;
+        $student->phonenumber = $request->no;
+        $student->classroom_id = $request->class;
+        $save2 = $student->save();
+
+        $user = User::find($student->user_id);
+        $user->name = $request->name;
+        $user->email = $request->nisn;
+        $save = $user->save();
+
+        if($save && $save2){
+            Session::flash('success', 'Sukses mengedit siswa');
+            return redirect()->route('admin.siswa.show', $id);
+        } else {
+            Session::flash('errors', ['' => 'Gagal mengedit siswa!']);
+            return redirect()->route('admin.siswa.create');
+        }
     }
 
     /**

@@ -9,6 +9,13 @@
     <link rel="stylesheet" href="{{ asset('style.css')}}">
     <script src="{{ asset('script.js')}}"></script>
     <link rel="preconnect" href="https://fonts.gstatic.com">
+    <style>
+        :root {
+            --primary: #853eac;
+            --dark: #4f4c9b;
+            --gradient: radial-gradient(100% 2187.83% at 0% 50%, #f6adf9 0%, #916b9c 100%);
+        }
+    </style>
     <link href="https://fonts.googleapis.com/css2?family=Exo:wght@700&family=Source+Sans+Pro:wght@600&display=swap"
         rel="stylesheet">
 </head>

@@ -1,16 +1,26 @@
 @extends('guru.master')
 
-@section('content')
+@section('title')
+    <title>Absen</title>
+@endsection
+
+@section('header')
+<h1 id="header">{{Auth::user()->name}}</h1>
 <script>
     document.getElementById('akun').className = 'active active-click';
-</script>    
-                <h1 id="header">Slamet Pramono, M. Si</h1>
+</script>
+@endsection
+
+@section('content')
                 <div class="task-group">
-                    <p style="margin-top: 0;">NIP   : 0014222021</p>
-                    <p>No. HP : +62 812-359-424</p>
-                    <p>Jl. Wetan Dalan No.20, Kecamatan Land Dawn, Kabupaten Kulon</p>
+                    <h3>Info Diri</h3>
+                    <div class="listdata">
+                        <p>NIP   : {{$guru->NIP}}</p>
+                        <p>No. HP : {{$guru->phonenumber}}</p>
+                        <p>Alamat : {{$guru->address}}</p>
+                    </div>
                     <div class="form-group flex-row primary-button" style="align-items: flex-start; margin-bottom: 0; margin-top: 12px;">
-                        <a href="{{ route('logout')}}"><button type="submit" value="Submit">Logout</button></a> 
+                        <a href="{{ route('logout')}}"><button type="submit" value="Submit">Logout</button></a>
                     </div>
                 </div>
 @endsection

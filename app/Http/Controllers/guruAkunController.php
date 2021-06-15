@@ -2,16 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Models\Classroom;
-use App\Models\Student;
 use App\Models\Teacher;
-use App\Models\Subject;
-use Session;
-use Config;
+use Illuminate\Http\Request;
 use Auth;
 
-class ClassroomController extends Controller
+class guruAkunController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -20,9 +15,9 @@ class ClassroomController extends Controller
      */
     public function index()
     {
-        $class = Classroom::withCount('student')->get();
-        $color = Config::get('constants.color');
-        return view('admin.kelas.index',compact('class','color'));
+        $id = Auth::user()->teacher->id;
+        $guru = Teacher::where('id', $id)->first();
+        return view('guru.akun.index', compact('guru'));
     }
 
     /**
@@ -32,7 +27,7 @@ class ClassroomController extends Controller
      */
     public function create()
     {
-        return view('admin.kelas.add');
+        //
     }
 
     /**
@@ -43,25 +38,7 @@ class ClassroomController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'class' => 'required',
-            'major' => 'required',
-        ]);
-        $letter = classroom::where('class', $request->class)->where('major', $request->major)->count() + 1;
-
-        $class = new classroom();
-        $class->class = $request->class;
-        $class->major = $request->major;
-        $class->letter = $letter;
-        $save = $class->save();
-
-        if($save){
-            Session::flash('success', 'Sukses menambah kelas');
-            return redirect()->route('admin.kelas.index');
-        } else {
-            Session::flash('errors', ['' => 'Gagal menambah kelas!']);
-            return redirect()->route('admin.kelas.create');
-        }
+        //
     }
 
     /**
@@ -72,10 +49,7 @@ class ClassroomController extends Controller
      */
     public function show($id)
     {
-        $student = Student::where('classroom_id', $id)->get();
-        $subject = Subject::where('classroom_id', $id)->get();
-        $color = Config::get('constants.color');
-        return view('admin.kelas.show', compact('student', 'subject', 'color', 'id'));
+        //
     }
 
     /**
@@ -111,5 +85,4 @@ class ClassroomController extends Controller
     {
         //
     }
-
 }

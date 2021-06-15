@@ -1,10 +1,17 @@
 @extends('guru.master')
 
-@section('content')
+@section('title')
+    <title>Absen</title>
+@endsection
+
+@section('header')
+<h1 id="header">Absen</h1>
 <script>
     document.getElementById('absen').className = 'active active-click';
-</script>    
-<h1 id="header">Absen</h1>
+</script>
+@endsection
+
+@section('content')
 <div class="flex-wrap" style="justify-content: flex-start;">
     <div class="task-group group-jadwal flex-col" style="gap: 12px;">
         <div class="fill flex-row center" color="red">Seni Budaya</div>

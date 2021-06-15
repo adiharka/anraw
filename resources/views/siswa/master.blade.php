@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jadwal</title>
+    @yield('title')
     <link rel="stylesheet" href="{{ asset('style.css')}}">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link
@@ -19,8 +19,8 @@
         <div class="navbar">
             <h1>Aula</h1>
             <ul>
-                <li id='home' onclick="location.href='{{ route('siswa.home')}}';"onmouseover="hover('homeLogo')"
-                onmouseout="hover('homeLogo')">
+                <li id='home' onclick="location.href='{{ route('siswa.home')}}';" onmouseover="hover('homeLogo')"
+                    onmouseout="hover('homeLogo')">
                     <svg id="homeLogo" width="21" height="21" viewBox="0 0 21 21" fill="none"
                         xmlns="http://www.w3.org/2000/svg">
                         <path
@@ -30,8 +30,8 @@
                             stroke-linejoin="round" />
                     </svg>
                     <span>HOME</span></li>
-                <li id="jadwal" onclick="location.href='{{ route('siswa.jadwal')}}';" onmouseover="hover('jadwalLogo')"
-                onmouseout="hover('jadwalLogo')">
+                <li id="jadwal" onclick="location.href='{{ route('siswa.jadwal.index')}}';"
+                    onmouseover="hover('jadwalLogo')" onmouseout="hover('jadwalLogo')">
                     <svg id="jadwalLogo" width="20" height="20" viewBox="0 0 20 20" fill="none"
                         xmlns="http://www.w3.org/2000/svg">
                         <path
@@ -42,20 +42,20 @@
                             stroke-linecap="round" stroke-linejoin="round" />
                     </svg>
                     <span>JADWAL</span></li>
-                <li id="tugas" onclick="location.href='{{ route('siswa.tugas')}}';" onmouseover="hover('tugasLogo')"
-                onmouseout="hover('tugasLogo')">
+                <li id="tugas" onclick="location.href='{{ route('siswa.tugas.index')}}';"
+                    onmouseover="hover('tugasLogo')" onmouseout="hover('tugasLogo')">
                     <svg id="tugasLogo" width="20" height="20" viewBox="0 0 20 20" fill="none"
-                    xmlns="http://www.w3.org/2000/svg">
-                    <path
-                        d="M16.867 10.1999C17.8052 9.26175 18.3323 7.98927 18.3323 6.66245C18.3323 5.33563 17.8052 4.06315 16.867 3.12495C15.9288 2.18675 14.6563 1.65967 13.3295 1.65967C12.0027 1.65967 10.7302 2.18675 9.79199 3.12495L4.16699 8.74995V15.8333H11.2503L16.867 10.1999Z"
-                        stroke-linecap="round" stroke-linejoin="round" />
-                    <path d="M13.3337 6.66663L1.66699 18.3333" stroke-linecap="round"
-                        stroke-linejoin="round" />
-                </svg>
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M16.867 10.1999C17.8052 9.26175 18.3323 7.98927 18.3323 6.66245C18.3323 5.33563 17.8052 4.06315 16.867 3.12495C15.9288 2.18675 14.6563 1.65967 13.3295 1.65967C12.0027 1.65967 10.7302 2.18675 9.79199 3.12495L4.16699 8.74995V15.8333H11.2503L16.867 10.1999Z"
+                            stroke-linecap="round" stroke-linejoin="round" />
+                        <path d="M13.3337 6.66663L1.66699 18.3333" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
                     <span>TUGAS</span></li>
-                <li id="absen" onclick="location.href='{{ route('siswa.absen')}}';" onmouseover="hover('absenLogo')"
+                {{-- <li id="absen" onclick="location.href='{{ route('siswa.absen')}}';"
+                onmouseover="hover('absenLogo')"
                 onmouseout="hover('absenLogo')">
-                    <svg id="absenLogo" width="20" height="20" viewBox="0 0 20 20" fill="none"
+                <svg id="absenLogo" width="20" height="20" viewBox="0 0 20 20" fill="none"
                     xmlns="http://www.w3.org/2000/svg">
                     <path
                         d="M14.1663 17.5V15.8333C14.1663 14.9493 13.8152 14.1014 13.19 13.4763C12.5649 12.8512 11.7171 12.5 10.833 12.5H4.16634C3.28229 12.5 2.43444 12.8512 1.80932 13.4763C1.1842 14.1014 0.833008 14.9493 0.833008 15.8333V17.5"
@@ -70,19 +70,66 @@
                         d="M13.333 2.60828C14.05 2.79186 14.6855 3.20886 15.1394 3.79353C15.5932 4.37821 15.8395 5.0973 15.8395 5.83744C15.8395 6.57758 15.5932 7.29668 15.1394 7.88135C14.6855 8.46603 14.05 8.88303 13.333 9.06661"
                         stroke-linecap="round" stroke-linejoin="round" />
                 </svg>
-                    <span>ABSEN</span></li>
+                <span>ABSEN</span></li> --}}
                 <li id="garis">
                     <div class="garis"></div>
                 </li>
-                <li id='akun' onclick="location.href='{{ route('siswa.akun')}}';" onmouseover="hover('akunLogo')" onmouseout="hover('akunLogo')">
-                    <img id="akunLogo" src="{{ asset('img/icon/akun-outline.svg')}}"><span>AKUN</span></li>
+                <li id='akun' onclick="location.href='{{ route('siswa.akun')}}';" onmouseover="hover('akunLogo')"
+                    onmouseout="hover('akunLogo')">
+                    <svg id="akunLogo" width="21" height="21" viewBox="0 0 21 21" fill="none"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M13.0499 5.96283C12.8972 6.11861 12.8117 6.32804 12.8117 6.54617C12.8117 6.76429 12.8972 6.97373 13.0499 7.1295L14.3833 8.46283C14.539 8.61552 14.7485 8.70105 14.9666 8.70105C15.1847 8.70105 15.3942 8.61552 15.5499 8.46283L18.6916 5.32117C19.1106 6.24716 19.2375 7.27886 19.0553 8.27879C18.8731 9.27871 18.3905 10.1994 17.6718 10.9181C16.9531 11.6368 16.0325 12.1194 15.0325 12.3015C14.0326 12.4837 13.0009 12.3569 12.0749 11.9378L6.31659 17.6962C5.98507 18.0277 5.53544 18.2139 5.06659 18.2139C4.59775 18.2139 4.14812 18.0277 3.81659 17.6962C3.48507 17.3646 3.29883 16.915 3.29883 16.4462C3.29883 15.9773 3.48507 15.5277 3.81659 15.1962L9.57493 9.43783C9.1559 8.51184 9.02902 7.48014 9.21121 6.48021C9.3934 5.48029 9.876 4.55963 10.5947 3.84093C11.3134 3.12224 12.234 2.63964 13.234 2.45745C14.2339 2.27526 15.2656 2.40214 16.1916 2.82117L13.0583 5.9545L13.0499 5.96283Z"
+                            stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                    <span>AKUN</span></li>
                 </li>
             </ul>
         </div>
         <div id="main">
             <div id="geser"></div>
             <div class="isi">
-                @yield('content')
+                <div class="flex-row header">
+                    @yield('header')
+                </div>
+                {{-- Alert --}}
+                @if(session('errors'))
+                <div>
+                    <div id='alert' class='normal'>
+                        <div class="task-group" style="padding-bottom: 1rem; overflow:hidden">
+                            <p style="margin: 0; text-align: center">Terjadi Error:</p>
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                            <button id='tutup' type="button" class="close" color='remove' style="max-width: unset">
+                                <span aria-hidden="true">Oke</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="garis" style="margin-bottom: 1.5rem; height:unset"></div>
+                @endif
+                @if(session('success'))
+                <div>
+                    <div id='alert' class='normal'>
+                        <div class="task-group" style="padding-bottom: 1rem; overflow:hidden">
+                            <ul style="margin-top:0">
+                                <li>{{session('success')}}</li>
+                            </ul>
+                            <button id='tutup' type="button" class="close" color='info' style="max-width: unset">
+                                <span aria-hidden="true">Oke</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="garis" style="margin-bottom: 1.5rem; height:unset"></div>
+                @endif
+                <div class="flex-wrap" style="justify-content: flex-start;">
+
+                    @yield('content')
+                </div>
             </div>
         </div>
     </div>

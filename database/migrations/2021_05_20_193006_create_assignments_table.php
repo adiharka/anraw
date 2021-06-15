@@ -15,9 +15,13 @@ class CreateAssignmentsTable extends Migration
     {
         Schema::create('assignments', function (Blueprint $table) {
             $table->id();
-            $table->date('date');
+            $table->bigInteger('subject_id')->unsigned();
+            $table->string('judul');
             $table->string('deskripsi');
+            $table->dateTime('deadline');
             $table->timestamps();
+
+            $table->foreign('subject_id')->references('id')->on('subjects')->onDelete('cascade')->onUpdate('no action');
         });
     }
 

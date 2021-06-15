@@ -39,7 +39,6 @@
                         <button color="info">Detail</button>
                     </a>
                     <form action="{{ route('admin.siswa.destroy', $siswa->id)}}" method="POST">
-                    {{-- <button onclick="{{ route('admin.siswa.edit', $siswa->user_id)}}" color="edit">Edit</button> --}}
                         @csrf
                         @method('DELETE')
                         <button type='submit' color="remove">Remove</button>
@@ -51,49 +50,6 @@
         @else
         <p>Tidak ada siswa</p>
         @endif
-        {{-- <table>
-            <tr>
-                <th width="25px" class="rowstart">ID</th>
-                <th>Nama</th>
-                <th>NISN</th>
-                <th>Kelas</th>
-                <th width="185px" class="rowend">Action</th>
-            </tr>
-            <tr>
-                <td class="rowstart">28</td>
-                <td>Habibie</td>
-                <td>19841239373</td>
-                <td>XI IPA A</td>
-                <td class="rowend">
-                    <button color="info">Detail</button>
-                    <button color="edit">Edit</button>
-                    <button color="remove">Remove</button>
-                </td>
-            </tr>
-            <tr>
-                <td class="rowstart">29</td>
-                <td>Usman</td>
-                <td>193423449373</td>
-                <td>XI IPA A</td>
-                <td class="rowend">
-                    <button color="info">Detail</button>
-                    <button color="edit">Edit</button>
-                    <button color="remove">Remove</button>
-                </td>
-            </tr>
-            <tr>
-                <td class="rowstart">32</td>
-                <td>Ainun</td>
-                <td>19841239373</td>
-                <td>X IPA C</td>
-                <td class="rowend">
-                    <button color="info">Detail</button>
-                    <button color="edit">Edit</button>
-                    <button color="remove">Remove</button>
-                </td>
-            </tr>
-        </table> --}}
-
     </div>
 
 </div>
