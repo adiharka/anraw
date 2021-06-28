@@ -30,7 +30,7 @@
         @foreach ($tugass as $tugas)
         @if ($tugas->subject->name == $subject->name)
         <?php $count++ ?>
-        <div color="{{ $color[$subject->classroom->letter] }}" class="task" style="box-shadow:none; cursor:default">
+        <div color="{{ $color[$subject->name] }}" class="task" style="box-shadow:none; cursor:default">
             <div class="flex-row" style="gap:4px; height:100%">
                 <div class="flex-col" style="height:100%; align-items: flex-start">
                     <h1>{{ $tugas->judul }}</h1>
@@ -39,6 +39,9 @@
                 </div>
                 <div class="flex-col" style="height:100%; align-items: flex-start">
                     <a href="{{ route('siswa.tugas.show', $tugas->id)}}">></a>
+                    @if( $kumpul->where('assignment_id', $tugas->id)->where('user_id', Auth::id())->count() >= 1)
+                    <a style="pointer-events:none; background:#157c4c">✓</a>
+                    @endif
                 </div>
             </div>
         </div>

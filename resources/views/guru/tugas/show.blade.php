@@ -10,7 +10,7 @@
 </script>
     <div class="flex-row">
         <div class="flex-row isi-button primary-button " style="align-items: flex-start">
-            <a href="{{ url()->previous() }}" style="display: flex;">
+            <a href="{{ route('guru.tugas.index') }}" style="display: flex;">
                 <svg id="back-button" width="30" height="30" viewBox="0 0 20 20" fill="none"
                     xmlns="http://www.w3.org/2000/svg">
                     <path
@@ -22,7 +22,7 @@
                 </svg>
             </a>
         </div>
-        <h1 id="header">Detail Kelas</h1>
+        <h1 id="header">Detail Tugas</h1>
     </div>
 @endsection
 @section('content')
@@ -31,6 +31,7 @@
     <div class="task-group" style="width: 100%;">
         <h3>{{$tugas->judul}}</h3>
         <div class="listdata">
+            <img class="img-border" src="{{ asset($tugas->foto) }}" alt="">
             <p>{{$tugas->deskripsi}}</p>
             <p>Deadline : {{\Carbon\Carbon::parse($tugas->deadline)->format('H:i - D, d F Y')}}</p>
         </div>

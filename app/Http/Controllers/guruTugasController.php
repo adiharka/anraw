@@ -9,6 +9,7 @@ use Auth;
 use Config;
 use PhpParser\Node\Expr\Assign;
 use Session;
+use Illuminate\Support\Str;
 
 class guruTugasController extends Controller
 {
@@ -46,7 +47,8 @@ class guruTugasController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'judul' => 'required',
+            'class' => 'required',
+            'judul' => 'required|max:13',
             'detail' => 'required',
             'deadline' => 'required',
         ]);
@@ -56,9 +58,17 @@ class guruTugasController extends Controller
         $tugas->judul = $request->judul;
         $tugas->deskripsi = $request->detail;
         $tugas->deadline = $request->deadline;
-        $save = $tugas->save();
 
-        if($save){
+        // Foto
+        if ($request->hasfile('photo')) {
+            $image = $request->file('photo');
+            $name = Str::random(9) . '.' . $image->extension();
+            $path = $image->storeAs('uploads', $name, 'public');
+            $tugas->foto = '/storage/' . $path;
+        }
+
+        $save = $tugas->save();
+        if ($save) {
             Session::flash('success', 'Sukses menambah tugas');
             return redirect()->route('guru.tugas.index');
         } else {
@@ -112,6 +122,6 @@ class guruTugasController extends Controller
     {
         Assignment::destroy($id);
 
-        return back()->with('success','Sukses menghapus tugas');
+        return back()->with('success', 'Sukses menghapus tugas');
     }
 }

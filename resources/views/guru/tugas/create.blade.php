@@ -1,4 +1,4 @@
-@extends('admin.master')
+@extends('guru.master')
 
 @section('title')
 <title>Tambah Tugas</title>
@@ -6,7 +6,7 @@
 
 @section('header')
 <script>
-    document.getElementById('guru').className = 'active active-click';
+    document.getElementById('tugas').className = 'active active-click';
 </script>
 <div class="flex-row header">
     <div class="flex-row">
@@ -33,10 +33,10 @@
 <div class="flex-wrap" style="justify-content: flex-start;">
     <div class="task-group" style="width: 100%;">
 
-        <form method="POST" action="{{ route('guru.tugas.store')}}" class="container-child">
+        <form method="POST" action="{{ route('guru.tugas.store')}}" class="container-child" enctype="multipart/form-data">
             @csrf
             <div class="form-group">
-                <label for="class">Kelas</label>
+                <label for="class">Kelas*</label>
                 <select name="class" id="class" class="form-control">
                     <option value="" disabled selected>Pilih kelas</option>
                     @forelse ($subjects as $subject)
@@ -48,17 +48,21 @@
                 </select>
             </div>
             <div class="form-group">
-                <label for="judul">Judul</label>
-                <input type="text" class="form-control" name="judul" id="judul" placeholder="Judul Tugas">
+                <label for="judul">Judul* (max 13 karakter)</label>
+                <input type="text" maxlength = "13" value="{{ old('judul') }}" class="form-control" name="judul" id="judul" placeholder="Judul Tugas">
             </div>
             <div class="form-group">
-                <label for="detail">Detail</label>
-                <textarea id="detail" class="form-control" name="detail" rows="4" cols="50" placeholder="Detail Tugas"></textarea>
-                {{-- <input type="text" class="form-control" name="detail" id="detail" placeholder="Detail Tugas"> --}}
+                <label for="detail">Detail*</label>
+                <textarea id="detail" class="form-control" name="detail" rows="4" cols="50" placeholder="Detail Tugas">{{ old('detail') }}</textarea>
             </div>
             <div class="form-group">
-                <label for="deadline">Deadline</label>
-                <input type="datetime-local" class="form-control" name="deadline" id="deadline">
+                <label for="detail">Foto</label>
+                <img src="{{ url('img/no-img.png') }}" class="btn-img" id="avadef" onclick="klik()">
+                <input type="file" name="photo" accept="image/*" id="ava" onchange="avadisp(this)" style="display: none">
+            </div>
+            <div class="form-group">
+                <label for="deadline">Deadline*</label>
+                <input type="datetime-local" class="form-control" value="{{ old('deadline') }}" name="deadline" id="deadline">
             </div>
             <div class="form-group primary-button">
                 <button type="submit">Tambah</button>

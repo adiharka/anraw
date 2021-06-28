@@ -573,6 +573,28 @@ button:hover {
     transition: .3s;
 }
 
+.btn-img {
+    max-width: 350px;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 1em;
+    cursor: pointer;
+    transition: ease 0.3s;
+    border: 1px solid var(--sdark);
+}
+
+.img-border {
+    max-width: 350px;
+    max-height: 200px;
+    object-fit: cover;
+    border-radius: 1em;
+    border: 1px solid var(--sdark);
+}
+
+.btn-img:hover {
+    filter: brightness(0.7);
+}
+
 .form-double {
     width: 100%;
     display: flex;

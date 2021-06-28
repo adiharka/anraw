@@ -23,7 +23,7 @@
                 <th width="25px" class="rowstart">ID</th>
                 <th>Nama</th>
                 <th>Kelas</th>
-                <th>NIP</th>
+                <th>NISN</th>
                 <th width="140px" class="rowend">Action</th>
             </tr>
             <?php $count=0 ?>

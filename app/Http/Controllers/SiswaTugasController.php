@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Assignment;
 use App\Models\Subject;
+use App\Models\Complete;
 use Illuminate\Http\Request;
 use Auth;
 use Config;
@@ -21,8 +22,15 @@ class SiswaTugasController extends Controller
     {
         $tugass = Assignment::get();
         $color = Config::get('constants.color');
+        $kumpul = Complete::get();
         $subjects = Subject::where('classroom_id', Auth::user()->student->classroom_id)->get();
-        return view('siswa.tugas.index', compact('tugass', 'subjects', 'color'));
+        return view('siswa.tugas.index', compact('tugass', 'subjects', 'color', 'kumpul'));
+    }
+
+    public function akun()
+    {
+        $akun = Auth::user();
+        return view('siswa.akun.index', compact('akun'));
     }
 
     /**
@@ -54,7 +62,9 @@ class SiswaTugasController extends Controller
      */
     public function show($id)
     {
-        //
+        $tugas = Assignment::where('id', $id)->first();
+        $kumpul = Complete::where('assignment_id', $id)->where('user_id', Auth::id())->count();
+        return view('siswa.tugas.show', compact('tugas', 'kumpul'));
     }
 
     /**
@@ -65,7 +75,8 @@ class SiswaTugasController extends Controller
      */
     public function edit($id)
     {
-        //
+        $tugas = Assignment::find($id);
+        return view('siswa.tugas.kumpul', compact('id', 'tugas'));
     }
 
     /**
@@ -77,7 +88,23 @@ class SiswaTugasController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'link' => 'required',
+        ]);
+
+        $tugas = new Complete();
+        $tugas->assignment_id = $id;
+        $tugas->user_id = Auth::id();
+        $tugas->link = $request->link;
+        $save = $tugas->save();
+
+        if ($save) {
+            Session::flash('success', 'Sukses mengumpulkan tugas');
+            return redirect()->route('siswa.tugas.index');
+        } else {
+            Session::flash('errors', ['' => 'Gagal mengumpulkan tugas!']);
+            return back();
+        }
     }
 
     /**

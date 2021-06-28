@@ -12,6 +12,9 @@
         href="https://fonts.googleapis.com/css2?family=Exo:wght@700&family=Exo:wght@500&family=Source+Sans+Pro:wght@600&display=swap"
         rel="stylesheet">
     <script src="{{ asset('script.js')}}"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=DM+Mono&display=swap');
+    </style>
 </head>
 
 <body>
@@ -52,25 +55,6 @@
                         <path d="M13.3337 6.66663L1.66699 18.3333" stroke-linecap="round" stroke-linejoin="round" />
                     </svg>
                     <span>TUGAS</span></li>
-                {{-- <li id="absen" onclick="location.href='{{ route('siswa.absen')}}';"
-                onmouseover="hover('absenLogo')"
-                onmouseout="hover('absenLogo')">
-                <svg id="absenLogo" width="20" height="20" viewBox="0 0 20 20" fill="none"
-                    xmlns="http://www.w3.org/2000/svg">
-                    <path
-                        d="M14.1663 17.5V15.8333C14.1663 14.9493 13.8152 14.1014 13.19 13.4763C12.5649 12.8512 11.7171 12.5 10.833 12.5H4.16634C3.28229 12.5 2.43444 12.8512 1.80932 13.4763C1.1842 14.1014 0.833008 14.9493 0.833008 15.8333V17.5"
-                        stroke-linecap="round" stroke-linejoin="round" />
-                    <path
-                        d="M7.50033 9.16667C9.34128 9.16667 10.8337 7.67428 10.8337 5.83333C10.8337 3.99238 9.34128 2.5 7.50033 2.5C5.65938 2.5 4.16699 3.99238 4.16699 5.83333C4.16699 7.67428 5.65938 9.16667 7.50033 9.16667Z"
-                        stroke-linecap="round" stroke-linejoin="round" />
-                    <path
-                        d="M19.167 17.4999V15.8333C19.1664 15.0947 18.9206 14.3773 18.4681 13.7935C18.0156 13.2098 17.3821 12.7929 16.667 12.6083"
-                        stroke-linecap="round" stroke-linejoin="round" />
-                    <path
-                        d="M13.333 2.60828C14.05 2.79186 14.6855 3.20886 15.1394 3.79353C15.5932 4.37821 15.8395 5.0973 15.8395 5.83744C15.8395 6.57758 15.5932 7.29668 15.1394 7.88135C14.6855 8.46603 14.05 8.88303 13.333 9.06661"
-                        stroke-linecap="round" stroke-linejoin="round" />
-                </svg>
-                <span>ABSEN</span></li> --}}
                 <li id="garis">
                     <div class="garis"></div>
                 </li>
@@ -126,10 +110,10 @@
                 </div>
                 <div class="garis" style="margin-bottom: 1.5rem; height:unset"></div>
                 @endif
-                <div class="flex-wrap" style="justify-content: flex-start;">
+                {{-- <div class="flex-wrap" style="justify-content: flex-start;"> --}}
 
                     @yield('content')
-                </div>
+                {{-- </div> --}}
             </div>
         </div>
     </div>

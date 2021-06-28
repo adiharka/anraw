@@ -19,6 +19,7 @@ class CreateAssignmentsTable extends Migration
             $table->string('judul');
             $table->string('deskripsi');
             $table->dateTime('deadline');
+            $table->string('foto')->nullable();
             $table->timestamps();
 
             $table->foreign('subject_id')->references('id')->on('subjects')->onDelete('cascade')->onUpdate('no action');

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Assignment;
 use Illuminate\Http\Request;
 use App\Models\Classroom;
 use App\Models\Student;
@@ -24,8 +25,9 @@ class SiswaKelasController extends Controller
         $student = Student::where('id', $id)->first();
         $students = Student::where('classroom_id', $student->classroom_id)->get();
         $subject = Subject::where('classroom_id', $student->classroom_id)->get();
+        $tugas = Assignment::get();
         $color = Config::get('constants.color');
-        return view('siswa.jadwal.index', compact('student', 'students', 'subject', 'color', 'id'));
+        return view('siswa.jadwal.index', compact('student', 'students', 'subject', 'tugas', 'color', 'id'));
     }
 
     /**

@@ -24,14 +24,6 @@
         <h1>{{ $subject->classroom->class }} {{ $subject->classroom->major }}
             {{$subject->classroom->letter}} - {{$subject->name}}</h1>
         <div class="tasks">
-            {{-- @foreach ($tugas as $tugas)
-            @if ($tugas->subject_id == $subject->id)
-            <div onclick="location.href='#'" color="yellow" class="task">
-                <h1>{{$tugas->judul}}</h1>
-            <p>{{$tugas->deadline}}</p>
-        </div>
-        @endif
-        @endforeach --}}
         <?php $count=0 ?>
         @foreach ($tugas as $tugas)
         <?php $count++ ?>

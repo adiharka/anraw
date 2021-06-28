@@ -15,15 +15,18 @@ class Subject extends Model
         'classroom_id',
     ];
 
-    public function teacher() {
+    public function teacher()
+    {
         return $this->belongsTo(Teacher::class);
     }
 
-    public function assignment() {
+    public function assignment()
+    {
         return $this->hasMany(Subject::class);
     }
 
-    public function classroom() {
+    public function classroom()
+    {
         return $this->belongsTo(Classroom::class);
     }
 }

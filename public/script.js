@@ -115,3 +115,19 @@ function search($col) {
       }
     }
   }
+
+  // profil user
+function klik(){
+    document.querySelector('#ava').click();
+}
+
+function avadisp(x){
+    if(x.files[0]){
+        var reader = new FileReader()
+
+        reader.onload = function(x){
+            document.querySelector('#avadef').setAttribute('src', x.target.result);
+        }
+        reader.readAsDataURL(x.files[0]);
+    }
+}

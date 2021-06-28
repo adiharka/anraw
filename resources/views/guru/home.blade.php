@@ -1,7 +1,7 @@
 @extends('guru.master')
 
 @section('title')
-    <title>Absen</title>
+    <title>Homepage</title>
 @endsection
 
 @section('header')
