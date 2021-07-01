@@ -9,11 +9,18 @@ class Assignment extends Model
 {
     use HasFactory;
 
-    public function subject() {
+    public function subject()
+    {
         return $this->belongsTo(subject::class);
     }
 
-    public function classroom() {
+    public function classroom()
+    {
         return $this->hasOne(classroom::class);
+    }
+
+    public function complete()
+    {
+        return $this->hasMany(complete::class);
     }
 }

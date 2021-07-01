@@ -1,12 +1,13 @@
 @extends('siswa.master')
 
 @section('title')
-   <title>Tugas</title>
+<title>Tugas</title>
 @endsection
 
 @section('header')
 <script>
     document.getElementById('tugas').className = 'active active-click';
+
 </script>
 
 <h1 id="header">Tugas</h1>
@@ -22,13 +23,14 @@
             @if ($tugas->subject_id == $subject->id)
             <div onclick="location.href='#'" color="yellow" class="task">
                 <h1>{{$tugas->judul}}</h1>
-            <p>{{$tugas->deadline}}</p>
-        </div>
-        @endif
-        @endforeach --}}
+            <p>{{$tugas->deadline}}</p>--}}
+        {{-- </div> --}}
+        {{-- @endif
+        @endforeach  --}}
         <?php $count=0 ?>
         @foreach ($tugass as $tugas)
         @if ($tugas->subject->name == $subject->name)
+        @if( $kumpul->where('assignment_id', $tugas->id)->where('user_id', Auth::id())->count() == 0)
         <?php $count++ ?>
         <div color="{{ $color[$subject->name] }}" class="task" style="box-shadow:none; cursor:default">
             <div class="flex-row" style="gap:4px; height:100%">
@@ -45,7 +47,7 @@
                 </div>
             </div>
         </div>
-
+        @endif
         @endif
         @endforeach
         @if ($count == 0)
@@ -53,8 +55,44 @@
             <p>Tidak ada tugas</p>
         </div>
         @endif
+
+
     </div>
 </div>
 @endforeach
+</div>
+
+<div class="flex-wrap" style="justify-content: flex-start;">
+    <div class="flex-col" style="align-items: flex-start; gap:1rem; margin-top:1.2rem">
+        <h3>Sudah dikumpulkan</h3>
+        <div class="task-group flex-row" style="gap:0.5rem">
+        @foreach ($subjects as $subject)
+            <div class="tasks">
+            @foreach ($tugass as $tugas)
+            @if ($tugas->subject->name == $subject->name)
+                @if( $kumpul->where('assignment_id', $tugas->id)->where('user_id', Auth::id())->count() >= 1)
+                <div color="{{ $color[$subject->name] }}" class="task" style="box-shadow:none; cursor:default">
+                    <div class="flex-row" style="gap:4px; height:100%">
+                        <div class="flex-col" style="height:100%; align-items: flex-start">
+                            <h1>{{ $tugas->judul }}</h1>
+                            <p>{{ $tugas->subject->name }}</p>
+                            {{-- <p>{{ \Carbon\Carbon::parse($tugas->deadline)->format('D, d M y')}}</p> --}}
+                            {{-- <p>{{ \Carbon\Carbon::parse($tugas->deadline)->format('H:i')}}</p> --}}
+                        </div>
+                        <div class="flex-col" style="height:100%; align-items: flex-start">
+                            <a href="{{ route('siswa.tugas.show', $tugas->id)}}">></a>
+                            <a style="pointer-events:none; background:#157c4c">✓</a>
+                        </div>
+                    </div>
+                </div>
+                @endif
+            @endif
+            @endforeach
+        </div>
+        @endforeach
+    </div>
+
+    </div>
+</div>
 
 @endsection

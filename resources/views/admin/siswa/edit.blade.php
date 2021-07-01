@@ -1,8 +1,8 @@
 @extends('admin.master')
 @section('header')
 <script>
-    document.getElementById('guru').className = 'active active-click';
-    document.title = 'Edit Guru';
+    document.getElementById('siswa').className = 'active active-click';
+    document.title = 'Edit Siswa';
 </script>
 <div class="flex-row header">
     <div class="flex-row">
@@ -20,7 +20,7 @@
             </a>
         </div>
         <h1 id="header">
-            Edit Guru</h1>
+            Edit Siswa</h1>
     </div>
 </div>
 @endsection

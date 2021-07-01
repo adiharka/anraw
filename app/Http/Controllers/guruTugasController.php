@@ -20,7 +20,7 @@ class guruTugasController extends Controller
      */
     public function index()
     {
-        $tugas = Assignment::get();
+        $tugas = Assignment::where('teacher_id', Auth::user()->teacher->id)->get();
         $color = Config::get('constants.color');
         $subjects = Subject::where('teacher_id', Auth::user()->teacher->id)->get();
         return view('guru.tugas.index', compact('tugas', 'subjects', 'color'));
@@ -54,6 +54,7 @@ class guruTugasController extends Controller
         ]);
 
         $tugas = new Assignment();
+        $tugas->teacher_id = Auth::user()->teacher->id;
         $tugas->subject_id = $request->class;
         $tugas->judul = $request->judul;
         $tugas->deskripsi = $request->detail;

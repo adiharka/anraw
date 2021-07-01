@@ -32,7 +32,7 @@
         <form method="POST" action="{{ route('admin.guru.store')}}" class="container-child">
             @csrf
             <div class="form-group">
-                <label for="nama">Nama</label>
+                <label for="name">Nama</label>
                 <input type="text" name="name" class="form-control" id="name" placeholder="Nama guru">
             </div>
             <div class="form-group">

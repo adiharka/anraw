@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Assignment;
 use App\Models\Subject;
-use App\Models\Complete;
+use App\Models\complete;
 use Illuminate\Http\Request;
 use Auth;
 use Config;

@@ -15,6 +15,7 @@ class CreateAssignmentsTable extends Migration
     {
         Schema::create('assignments', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('teacher_id');
             $table->bigInteger('subject_id')->unsigned();
             $table->string('judul');
             $table->string('deskripsi');
@@ -22,6 +23,7 @@ class CreateAssignmentsTable extends Migration
             $table->string('foto')->nullable();
             $table->timestamps();
 
+            $table->foreign('teacher_id')->references('id')->on('teachers')->onDelete('cascade')->onUpdate('no action');
             $table->foreign('subject_id')->references('id')->on('subjects')->onDelete('cascade')->onUpdate('no action');
         });
     }

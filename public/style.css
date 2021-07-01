@@ -281,6 +281,18 @@ a:hover {
     background: #c99fdd;
 }
 
+*[color=leaf] {
+    background: #9fdda9;
+}
+
+*[color=pink] {
+    background: #f197d3;
+}
+
+*[color=orange] {
+    background: #eca18e;
+}
+
 *[color=info]:hover {
     box-shadow: inset 0px 0px 0px 2px var(--dark);
     /* background: #85b1e4; */
@@ -847,10 +859,10 @@ div .remove {
     }
 
     .navbar {
-        height: 3rem;
+        height: 3.5rem;
         width: 100%;
         padding: 0;
-        padding-bottom: 0.5rem;
+        padding-bottom: 0.6rem;
         top: auto;
         bottom: 0;
         display: flex;
@@ -860,8 +872,9 @@ div .remove {
         backdrop-filter: blur(15px);
     }
 
-    .navbar img {
-        height: 25px;
+    .navbar svg {
+        height: 30px;
+        width: 24px;
     }
 
     .navbar h1 {
@@ -874,7 +887,7 @@ div .remove {
 
     .navbar .active span {
         display: flex;
-        font-size: 12px;
+        font-size: 16px;
     }
 
     .navbar ul {
@@ -889,7 +902,7 @@ div .remove {
     }
 
     .navbar li {
-        margin: 4px;
+        margin: 6px;
     }
 
     .isi {
