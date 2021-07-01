@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Assignment;
 use App\Models\Subject;
+use App\Models\complete;
 use Illuminate\Http\Request;
 use Auth;
 use Config;
@@ -87,7 +88,8 @@ class guruTugasController extends Controller
     public function show($id)
     {
         $tugas = Assignment::where('id', $id)->first();
-        return view('guru.tugas.show', compact('tugas'));
+        $complete = complete::where('assignment_id', $id)->get();
+        return view('guru.tugas.show', compact('tugas', 'complete'));
     }
 
     /**

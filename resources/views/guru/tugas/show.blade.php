@@ -37,5 +37,32 @@
         </div>
     </div>
 
+    <div class="task-group" style="width: 100%;">
+        <h1>Siswa yg sdh mengumpulkan</h1>
+        @if (!$complete->isEmpty())
+        <table id="table">
+        <input type="text" id="searchInput" style='margin-bottom: 1rem' class="form-control" onkeyup="search(1)" placeholder="Ketik untuk mencari">
+            <tr class="tableheader">
+                <th width="25px" class="rowstart">ID</th>
+                <th>Nama</th>
+                <th>File</th>
+                <th>Waktu Pengumpulan</th>
+            </tr>
+            <?php $count=0 ?>
+            @foreach ($complete as $siswa)
+            <?php $count++ ?>
+            <tr>
+                <td class="rowstart">{{$siswa->id}}</td>
+                <td>{{$siswa->user->name}}</td>
+                <td>{{$siswa->link}}</td>
+                <td>{{$siswa->created_at}}</td>
+            </tr>
+            @endforeach
+        </table>
+        @else
+        <p>Tidak ada siswa</p>
+        @endif
+    </div>
+
 </div>
 @endsection
